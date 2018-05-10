@@ -1,27 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel= "stylesheet" type= "text/css" href= "index.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
   </head>
   <body>
+    <!--the three buttons defined -->
+
+    <button type="button" id="newTweetButton">See New Tweet</button>
+    <button type="button" id="allTweetsButton">Back to All Tweets</button>
+    <button type="button" id="tweetInputButton">Write A Tweet</button>
+
     <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+      //the three buttons given variable names
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+      const newTweetButton = $("#newTweetButton");
+      const allTweetsButton = $("#allTweetsButton");
+      const tweetInputButton = $("#tweetInputButton");   
 
+      //actions when the three buttons are clicked
+      
+      newTweetButton.click(() => {
+        showTweetOnPage(streams.home[streams.home.length - 1]);         
       });
 
+      allTweetsButton.click(() => {
+        $(".tweet").each((i, tweet) => {
+          newTweetButton.show();
+          allTweetsButton.hide();
+          tweetInputButton.show();
+        });
+      })
+
+      tweetInputButton.click(() => {
+        var yourTweet = prompt("Write Your Tweet");
+        var visitor = prompt("Write your name");
+        var $tweet = $("<div></div>");
+        $tweet.text('@' + visitor + ': ' + yourTweet + '. Time of Tweet: ' + moment(yourTweet.created_at).fromNow() + getTime());
+        $tweet.addClass('tweet');
+        $tweet.addClass(visitor);
+        $tweet.click(() => showOnlyTweetsFromUser(visitor));
+        $tweet.appendTo($('body'));
+
+      });  
+
+      //all the functions
+
+      function showTweetOnPage(tweet) {
+        var $tweet = $('<div></div>');
+        $tweet.text('@' + tweet.user + ': ' + tweet.message + ' . Time of Tweet: ' + moment(tweet.created_at).fromNow() + ' on ' +  getTime());
+        $tweet.addClass('tweet');
+        $tweet.addClass(tweet.user);
+        $tweet.click(() => showOnlyTweetsFromUser(tweet.user));
+        $tweet.appendTo($('body'));
+      };   
+
+      function showOnlyTweetsFromUser(userClass) {
+        $('.tweet').each((i, tweet) => {
+          if (!$(tweet).hasClass(userClass)) {
+            $(tweet).hide();
+          }
+          newTweetButton.hide();
+          allTweetsButton.show();
+          tweetInputButton.toggle();
+        });
+      }     
+
+      function getTime() {
+        var currentDate = new Date();
+        var dateTime = currentDate.getDate() + "/"
+          + (currentDate.getMonth() + 1) + "/"
+          + currentDate.getFullYear() + "@"
+          + currentDate.getHours() + ":"
+          + currentDate.getMinutes() + ":"
+          + currentDate.getSeconds();
+        return dateTime;
+      }
+      const initialize = () => {
+          $(document).ready(function () {
+          allTweetsButton.hide();
+          var index = streams.home.length - 1;
+          while (index >= 0) {
+            var tweet = streams.home[index];            
+            showTweetOnPage(tweet);
+            index -= 1;
+          }
+        });        
+      };
+      initialize();    
     </script>
   </body>
 </html>
