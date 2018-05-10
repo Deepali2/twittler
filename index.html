@@ -5,13 +5,13 @@
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+    <div class="tweetContainer"></div>
   </head>
   <body>
     <!--the three buttons defined -->
-
     <button type="button" id="newTweetButton">See New Tweet</button>
-    <button type="button" id="allTweetsButton">Back to All Tweets</button>
     <button type="button" id="tweetInputButton">Write A Tweet</button>
+    <button type="button" id="allTweetsButton">Back to All Tweets</button>
 
     <script>
 
@@ -28,12 +28,12 @@
       });
 
       allTweetsButton.click(() => {
-        $(".tweet").each((i, tweet) => {
-          newTweetButton.show();
-          allTweetsButton.hide();
-          tweetInputButton.show();
-        });
-      })
+        $('.tweet').each((i, tweet) => $(tweet).show());        
+        newTweetButton.show();
+        allTweetsButton.hide();
+        tweetInputButton.show();
+      });
+      
 
       tweetInputButton.click(() => {
         var yourTweet = prompt("Write Your Tweet");
@@ -43,7 +43,7 @@
         $tweet.addClass('tweet');
         $tweet.addClass(visitor);
         $tweet.click(() => showOnlyTweetsFromUser(visitor));
-        $tweet.appendTo($('body'));
+        $tweet.appendTo($('.tweetContainer'));
 
       });  
 
@@ -55,7 +55,7 @@
         $tweet.addClass('tweet');
         $tweet.addClass(tweet.user);
         $tweet.click(() => showOnlyTweetsFromUser(tweet.user));
-        $tweet.appendTo($('body'));
+        $tweet.appendTo($('.tweetContainer'));
       };   
 
       function showOnlyTweetsFromUser(userClass) {
@@ -65,7 +65,7 @@
           }
           newTweetButton.hide();
           allTweetsButton.show();
-          tweetInputButton.toggle();
+          tweetInputButton.hide();
         });
       }     
 

@@ -1,0 +1,73 @@
+div {
+  color: #0033cc;  
+}
+
+/* mouse over tweet*/
+div:hover {
+    color: #FF00FF;   
+}
+/* tweet visited*/
+div:active{
+    color: #FF0000;
+}
+
+#newTweetButton {
+  background-color: yellow; 
+  width: 200px;
+  height: 75px; 
+  line-height: 20px;
+  border: #4286f4 3px solid;
+  color: red;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  box-shadow: 8px 6px 2px ;
+  border-radius: 7px;
+}
+
+#allTweetsButton {
+  background-color: #6600ff;
+  border: #f46541 3px solid;
+  color: black;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  box-shadow: 8px 6px 2px ;
+  border-radius: 7px;
+}
+
+#tweetInputButton {
+  background-color:	rgb(0, 255, 191);  
+  border: #9a41f4 3px solid;
+  color: #333399;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  box-shadow: 8px 6px 2px ;
+  border-radius: 7px;
+}
+
+.tweet {
+  padding: 2px;
+}
+
+.tweetContainer {
+  background-color: lightgreen;
+  border: 5px solid black;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+button {
+  margin: 5px;
+}
